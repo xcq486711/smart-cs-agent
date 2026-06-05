@@ -170,8 +170,9 @@ class ReActAgent:
             - 用 re.match + group(1)
         """
         # [TODO] 在这里写你的代码
-        final_answer = re.match(r"Finish\[(.*)\]", action_text).group(1)
-        return final_answer
+        final_answer = re.match(r"Finish\[(.*)\]", action_text,re.DOTALL).group(1)
+        if final_answer:
+            return final_answer
 
 # ================================================================
 # 测试代码：等你实现了上面三个方法后，去掉注释运行
@@ -190,5 +191,5 @@ if __name__ == '__main__':
     agent = ReActAgent(llm_client=llm, tool_executor=tool_executor)
 
     # 测试问题
-    question = "华为最新的手机是哪一款？它的主要卖点是什么？"
+    question = ("上海最近的一场演唱会是多久，在哪开，今年是2026年")
     result = agent.run(question)
